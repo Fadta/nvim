@@ -1,11 +1,12 @@
-function keymapMode(mode)
-	return function(lhs, rhs, opts)
-		vim.keymap.set(mode, lhs, rhs, opts)
-	end
+local function keymapMode(mode)
+  return function(lhs, rhs, opts)
+    vim.keymap.set(mode, lhs, rhs, opts)
+  end
 end
 
-nmap = keymapMode 'n'
-imap = keymapMode 'i'
+local nmap = keymapMode 'n'
+local imap = keymapMode 'i'
+local vmap = keymapMode 'v'
 
 -- Frequent keys
 nmap('<Esc>', '<cmd>nohlsearch<CR>')
