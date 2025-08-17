@@ -1,8 +1,3 @@
-local excluded_filetypes = {
-  -- files which shouldn't have this autocmd active
-  oil = true,
-}
-
 local norelative_events = {
   'InsertEnter',
   'WinLeave',
@@ -20,21 +15,21 @@ local relative_events = {
 local group = Augroup('AdaptiveRNU')
 
 local function setRnu(relative)
-  if excluded_filetypes[vim.bo.filetype] then
-    return true --kill autocmd if excluded
+  if vim.bo.buftype ~= "" then
+    return true --kill autocmd if it is not a normal buffer (Like a buffer from a plugin)
   else
     vim.opt.relativenumber = relative
   end
 end
 
 
-vim.api.nvim_create_autocmd(norelative_events, { group = group,
+Autocmd(norelative_events, { group = group,
 desc = "No relative numbers hook",
 callback = function ()
   setRnu(false)
 end})
 
-vim.api.nvim_create_autocmd(relative_events, {group = group,
+Autocmd(relative_events, {group = group,
 desc = "Relative numbers hook",
 callback = function ()
   setRnu(true)

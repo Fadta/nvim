@@ -26,4 +26,34 @@ Autocmd("BufReadPost", {
   end,
 })
 
+Autocmd("BufWinEnter", {
+	desc = "auto change local current directory",
+	group = Augroup("auto-project-root"),
+	callback = function(args)
+		if vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "" then
+			return
+		end
+
+		local root = vim.fs.root(args.buf, function(name, path)
+			local pattern = { ".git", "Cargo.toml", "go.mod" }
+			local multipattern = { "build/compile_commands.json" }
+			local abspath = { vim.fn.stdpath("config") }
+			local parentpath = { "~/.config", "~/prj" }
+
+			return vim.iter(pattern):any(function(filepat)
+				return filepat == name
+			end) or vim.iter(multipattern):any(function(filepats)
+				return vim.uv.fs_stat(vim.fs.joinpath(path, vim.fs.normalize(filepats)))
+			end) or vim.iter(abspath):any(function(dirpath)
+				return vim.fs.normalize(dirpath) == path
+			end) or vim.iter(parentpath):any(function(ppath)
+				return vim.fs.normalize(ppath) == vim.fs.dirname(path)
+			end)
+		end)
+		if root then
+			vim.cmd.lcd(root)
+		end
+	end,
+})
+
 require('core.autocmds.adaptive_rnu')
