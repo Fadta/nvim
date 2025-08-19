@@ -24,9 +24,13 @@ return {
 
   -- Integrate notifications to the UI
   {
-    'j-hui/fidget.nvim', opts = {},
+    'rcarriga/nvim-notify',
     config = function ()
-      vim.notify = require'fidget'.notify
+      require('notify').setup{
+        background_colour = '#000000',
+        merge_duplicates = true
+      }
+      vim.notify = require'notify'.notify
     end
   },
   {
