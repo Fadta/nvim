@@ -42,6 +42,7 @@ return {
           auto_brackets = {enabled = true}
         }
       },
+      signature = { enabled = true },
 
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
