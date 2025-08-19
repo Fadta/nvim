@@ -1,3 +1,4 @@
+SIG_KILLACMD = true -- Returning true from a callback kills the running autocmd
 function Augroup(name)
   vim.api.nvim_create_augroup('Conf-' .. name, {clear = false})
 end

@@ -16,7 +16,7 @@ local group = Augroup('AdaptiveRNU')
 
 local function setRnu(relative)
   if vim.bo.buftype ~= "" then
-    return true --kill autocmd if it is not a normal buffer (Like a buffer from a plugin)
+    return SIG_KILLACMD
   else
     vim.opt.relativenumber = relative
   end
