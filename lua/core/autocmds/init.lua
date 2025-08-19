@@ -69,4 +69,6 @@ local function enableAutocmd(module_name)
   local module_path = 'core.autocmds.'
   require(module_path .. module_name)
 end
+
 enableAutocmd 'adaptive_rnu'
+enableAutocmd('help')
