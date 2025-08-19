@@ -24,13 +24,13 @@ end
 
 
 Autocmd(norelative_events, { group = group,
-desc = "No relative numbers hook",
-callback = function ()
-  setRnu(false)
+  desc = "No relative numbers hook",
+  callback = function ()
+    setRnu(false)
 end})
 
 Autocmd(relative_events, {group = group,
-desc = "Relative numbers hook",
-callback = function ()
-  setRnu(true)
+  desc = "Relative numbers hook",
+  callback = function ()
+    setRnu(true)
 end})
