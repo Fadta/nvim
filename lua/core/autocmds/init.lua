@@ -9,7 +9,7 @@ end
 
 
 function GetProjectRoot(source)
-  vim.fs.root(source, function(name, path)
+  local root = vim.fs.root(source, function(name, path)
       local pattern = { ".git", "Cargo.toml", "go.mod" }
       local abspath = { vim.fn.stdpath("config") }
       local parentpath = { "~/.config", "~/projects" }
@@ -26,7 +26,7 @@ function GetProjectRoot(source)
         return vim.fs.normalize(ppath) == vim.fs.dirname(path)
       end)
     end)
-
+  return root
 end
 
 
