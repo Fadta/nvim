@@ -1,5 +1,15 @@
 return {
   {
+    'folke/lazydev.nvim', -- Better integration of luals for neovim configuration
+    lazy = true,
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = {"vim%.uv" } },
+      }
+    }
+  },
+  {
     'neovim/nvim-lspconfig',
     dependencies = {
       'Saghen/blink.cmp'
