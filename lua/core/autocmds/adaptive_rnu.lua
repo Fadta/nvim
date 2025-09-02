@@ -1,18 +1,18 @@
 local norelative_events = {
-  'InsertEnter',
-  'WinLeave',
-  'FocusLost',
-  'BufNewFile',
-  'BufReadPost',
+  "InsertEnter",
+  "WinLeave",
+  "FocusLost",
+  "BufNewFile",
+  "BufReadPost",
 }
 local relative_events = {
-  'VimEnter',
-  'InsertLeave',
-  'WinEnter',
-  'FocusGained',
+  "VimEnter",
+  "InsertLeave",
+  "WinEnter",
+  "FocusGained",
 }
 
-local group = Augroup('AdaptiveRNU')
+local group = Augroup("AdaptiveRNU")
 
 local function setRnu(relative)
   if vim.bo.buftype ~= "" then
@@ -22,15 +22,18 @@ local function setRnu(relative)
   end
 end
 
-
-Autocmd(norelative_events, { group = group,
+Autocmd(norelative_events, {
+  group = group,
   desc = "No relative numbers hook",
-  callback = function ()
+  callback = function()
     setRnu(false)
-end})
+  end,
+})
 
-Autocmd(relative_events, {group = group,
+Autocmd(relative_events, {
+  group = group,
   desc = "Relative numbers hook",
-  callback = function ()
+  callback = function()
     setRnu(true)
-end})
+  end,
+})

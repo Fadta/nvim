@@ -1,5 +1,5 @@
 return {
----@type LazySpec
+  ---@type LazySpec
   {
     "mikavilpas/yazi.nvim",
     version = "*", -- use the latest stable version
@@ -40,7 +40,7 @@ return {
   },
 
   {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {},
@@ -49,44 +49,44 @@ return {
   },
 
   {
-  "nvim-tree/nvim-tree.lua",
-  version = "*",
-  lazy = false,
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
-  config = function()
-    local tree = require'nvim-tree'
-    tree.setup {
-      renderer = {
-        group_empty = true,
-        -- search for glyphs on nvim-tree docs
-        icons = {
-          glyphs = {
-            git = {
-              unstaged = "󰛑",
-              staged = "󰛐",
-              unmerged = "",
-              renamed = "󰬳",
-              untracked = "",
-              deleted = "",
-              ignored = "󱀣",
-            }
-          }
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      local tree = require("nvim-tree")
+      tree.setup({
+        renderer = {
+          group_empty = true,
+          -- search for glyphs on nvim-tree docs
+          icons = {
+            glyphs = {
+              git = {
+                unstaged = "󰛑",
+                staged = "󰛐",
+                unmerged = "",
+                renamed = "󰬳",
+                untracked = "",
+                deleted = "",
+                ignored = "󱀣",
+              },
+            },
+          },
         },
-      },
 
-      sort = {
-        sorter = "case_sensitive",
-      },
-      view = {
-        signcolumn = 'auto',
-        width = 30,
-      },
-      filters = {
-        dotfiles = true,
-      },
-    }
-  end
-  }
+        sort = {
+          sorter = "case_sensitive",
+        },
+        view = {
+          signcolumn = "auto",
+          width = 30,
+        },
+        filters = {
+          dotfiles = true,
+        },
+      })
+    end,
+  },
 }

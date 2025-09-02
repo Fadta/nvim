@@ -1,38 +1,32 @@
 SIG_KILLACMD = true -- Returning true from a callback kills the running autocmd
 function Augroup(name)
-  vim.api.nvim_create_augroup('Conf-' .. name, {clear = false})
+  vim.api.nvim_create_augroup("Conf-" .. name, { clear = false })
 end
 
 function Autocmd(event, opts)
   vim.api.nvim_create_autocmd(event, opts)
 end
 
-
 function GetProjectRoot(source)
   local root = vim.fs.root(source, function(name, path)
-      local pattern = { ".git", "Cargo.toml", "go.mod" }
-      local abspath = { vim.fn.stdpath("config") }
-      local parentpath = { "~/.config", "~/projects" }
+    local pattern = { ".git", "Cargo.toml", "go.mod" }
+    local abspath = { vim.fn.stdpath("config") }
+    local parentpath = { "~/.config", "~/projects" }
 
-      return vim.iter(pattern):any(function(filepat)
-        return filepat == name
-      end)
-
-      or vim.iter(abspath):any(function(dirpath)
-        return vim.fs.normalize(dirpath) == path
-      end)
-
-      or vim.iter(parentpath):any(function(ppath)
-        return vim.fs.normalize(ppath) == vim.fs.dirname(path)
-      end)
+    return vim.iter(pattern):any(function(filepat)
+      return filepat == name
+    end) or vim.iter(abspath):any(function(dirpath)
+      return vim.fs.normalize(dirpath) == path
+    end) or vim.iter(parentpath):any(function(ppath)
+      return vim.fs.normalize(ppath) == vim.fs.dirname(path)
     end)
+  end)
   return root
 end
 
-
-Autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = Augroup('HighlightYank'),
+Autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = Augroup("HighlightYank"),
   callback = function()
     vim.highlight.on_yank()
   end,
@@ -40,7 +34,7 @@ Autocmd('TextYankPost', {
 
 Autocmd("BufReadPost", {
   desc = "Restore cursor to file position in previous editing session",
-  group = Augroup('CursorMemory'),
+  group = Augroup("CursorMemory"),
   callback = function(event)
     local mark = vim.api.nvim_buf_get_mark(event.buf, '"')
     local line_count = vim.api.nvim_buf_line_count(event.buf)
@@ -67,9 +61,9 @@ Autocmd("BufWinEnter", {
 })
 
 local function enableAutocmd(module_name)
-  local module_path = 'core.autocmds.'
+  local module_path = "core.autocmds."
   require(module_path .. module_name)
 end
 
-enableAutocmd 'adaptive_rnu'
-enableAutocmd('help')
+enableAutocmd("adaptive_rnu")
+enableAutocmd("help")
