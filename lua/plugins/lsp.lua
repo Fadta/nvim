@@ -47,11 +47,11 @@ return {
 
           -- AUTOCOMMANDS on attach
           if
-            client
-            and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight)
+              client
+              and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight)
           then
             local highlight_augroup =
-              vim.api.nvim_create_augroup("ConfLspHighlight", { clear = false })
+                vim.api.nvim_create_augroup("ConfLspHighlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -100,7 +100,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls" },
+        ensure_installed = require('language_services').get_lsp_list(),
         handlers = {
           function(server_name)
             vim.lsp.enable(server_name)

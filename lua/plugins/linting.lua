@@ -4,9 +4,7 @@ return {
     lazy = true,
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-      },
+      formatters_by_ft = require("language_services").get_formatters_by_ft(),
       format_on_save = {
         timeout_ms = 500,
         lsp_format = "fallback",
@@ -19,9 +17,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local lint = require("lint")
-      lint.linters_by_ft = {
-        lua = { "selene" },
-      }
+      lint.linters_by_ft = require('language_services').get_linters_by_ft()
 
       local lint_augroup = vim.api.nvim_create_augroup("Config-linter", { clear = true })
 
