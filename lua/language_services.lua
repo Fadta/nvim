@@ -6,6 +6,10 @@ M.filetypes = {
     linter = { "selene" },
     formatter = { "stylua" },
   },
+  cpp = {
+    lsp = { "clangd" },
+    linter = { "cpplint" },
+  }
 }
 
 local function get_key_by_ft(key, filetype_tbl)
@@ -20,12 +24,18 @@ local function get_key_by_ft(key, filetype_tbl)
   return key_table
 end
 
+local function extend(tbl1, tbl2)
+  for _, v in pairs(tbl2) do
+    table.insert(tbl1, v)
+  end
+end
+
 local function get_key_list(key, filetype_tbl)
   local key_list = {}
 
   for _, content in pairs(filetype_tbl) do
     if content[key] ~= nil then
-      vim.tbl_extend("keep", key_list, content[key])
+      extend(key_list, content[key])
     end
   end
 
