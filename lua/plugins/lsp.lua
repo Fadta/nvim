@@ -80,7 +80,12 @@ return {
       for type, icon in pairs(signs) do
         diagnostic_signs[vim.diagnostic.severity[type]] = icon
       end
-      vim.diagnostic.config({ signs = { text = diagnostic_signs } })
+      vim.diagnostic.config({
+        signs = { text = diagnostic_signs },
+        virtual_text = true,
+        virtual_lines = false,
+        underline = true,
+      })
     end,
   }, -- End of lspconfig
 
@@ -93,26 +98,12 @@ return {
       ui = {
         border = "rounded",
       },
+      ensure_installed = require('language_services').get_lsp_list(),
+
     },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = require('language_services').get_lsp_list(),
-        handlers = {
-          function(server_name)
-            vim.lsp.enable(server_name)
-          end,
-        },
-      })
-
-      vim.diagnostic.config({
-        virtual_text = true,
-        virtual_lines = false,
-        underline = true,
-      })
-    end,
   },
 }
