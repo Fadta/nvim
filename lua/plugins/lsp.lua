@@ -51,7 +51,7 @@ return {
               and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight)
           then
             local highlight_augroup =
-                vim.api.nvim_create_augroup("ConfLspHighlight", { clear = false })
+                vim.api.nvim_create_augroup("conf-lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -94,11 +94,13 @@ return {
 --]]
   {
     "mason-org/mason-lspconfig.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       ui = {
         border = "rounded",
       },
-      ensure_installed = require('language_services').get_lsp_list(),
+      -- ensure_installed = require('language_services').get_lsp_list(),
+      -- ensure_installed is delegated to bootstrapper.lua
 
     },
     dependencies = {
