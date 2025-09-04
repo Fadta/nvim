@@ -3,17 +3,17 @@ return {
   {
     "mikavilpas/yazi.nvim",
     version = "*", -- use the latest stable version
-    event = "VeryLazy",
+    --lazy = true,
     dependencies = {
       { "nvim-lua/plenary.nvim", lazy = true },
     },
     keys = {
       -- 👇 in this section, choose your own keymappings!
       {
-        "<leader>-",
-        mode = { "n", "v" },
+        "<leader>sy",
         "<cmd>Yazi toggle<cr>",
-        desc = "Open yazi at the current file",
+        mode = { "n", "v" },
+        desc = "[s]how [y]azi",
       },
       {
         -- Open in the current working directory
@@ -45,16 +45,22 @@ return {
     ---@type oil.SetupOpts
     opts = {},
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
+    keys = {
+      { "<leader>so", "<cmd>Oil --float<CR>", desc = "[s]how [o]il" }
+    }
   },
 
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
-    lazy = false,
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
+
+    keys = {
+      { "<leader>st", "<cmd>NvimTreeToggle<CR>", desc = "[s]how [t]ree" },
+    },
+
     config = function()
       local tree = require("nvim-tree")
       tree.setup({

@@ -28,11 +28,6 @@ nmap("<C-l>", "<C-w>l")
 nmap("<C-Up>", "<C-u>")
 nmap("<C-Down>", "<C-d>")
 
--- Show plugin interfaces
-nmap("<leader>st", "<cmd>NvimTreeToggle<CR>", { desc = "[s]how [t]ree" })
-nmap("<leader>sy", "<cmd>Yazi<CR>", { desc = "[s]how [y]azi" })
-nmap("<leader>so", "<cmd>Oil --float<CR>", { desc = "[s]how [o]il" })
-
 -- Quickly return to normal mode with movement keys
 imap("jk", "<Esc>")
 imap("kj", "<Esc>")
