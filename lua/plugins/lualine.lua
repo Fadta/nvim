@@ -1,6 +1,7 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    event = { "VimEnter" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
@@ -37,24 +38,34 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { "filename" },
-        lualine_x = { "encoding", "fileformat", "filetype" },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_b = { "branch",
+          {
+            "diff",
+            symbols = { added = '+', modified = ' ', removed = '-' },
+          },
+          {
+            "diagnostics",
+            sources = { "nvim_diagnostic", "nvim_lsp" },
+            symbols = { error = "", warn = "", info = "", hint = "" },
+          },
+        },
+        lualine_c = { "filename", },
+        lualine_x = { "encoding", "lsp_status", "filetype" },
+        lualine_y = { "searchcount", },
+        lualine_z = { { "datetime", style = "%H:%M" } },
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { "filename" },
-        lualine_x = { "location" },
+        lualine_c = {},
+        lualine_x = { "filetype" },
         lualine_y = {},
         lualine_z = {},
       },
       tabline = {},
       winbar = {},
       inactive_winbar = {},
-      extensions = {},
+      extensions = { "oil" },
     },
   },
 }
