@@ -47,7 +47,8 @@ return {
       nmap("<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
       nmap("<leader>fg", builtin.live_grep, { desc = "[F]ind [G]rep (Workspace)" })
       nmap("<leader><leader>",
-        "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal ignore_current_buffer=true theme=ivy<CR>")
+        "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal ignore_current_buffer=true theme=ivy<CR>",
+        { desc = "Show buffers" })
     end,
   },
 }

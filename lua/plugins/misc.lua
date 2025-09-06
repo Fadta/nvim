@@ -1,6 +1,20 @@
 return {
   "tpope/vim-sleuth", -- Detection of tabstop and shiftwidth automatically
 
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      delay = 500,
+      preset = "modern",
+      spec = {
+        { "<leader>l", group = "LSP" },
+        { "<leader>s", group = "Show (UI)" },
+        { "<leader>f", group = "Find" }
+      }
+    }
+  },
+
   -- Integrate notifications to the UI
   {
     "rcarriga/nvim-notify",
