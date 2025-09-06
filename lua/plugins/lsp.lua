@@ -13,13 +13,21 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "Saghen/blink.cmp",
+      "artemave/workspace-diagnostics.nvim"
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("ConfLspAttach", { clear = true }),
         callback = function(event)
           local client_id = event.data.client_id
+          local bufnr = event.buf
           local client = vim.lsp.get_client_by_id(client_id)
+          local builtin = require("telescope.builtin")
+
+          -- Workspace diagnostics
+          for _, client_lsp in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+            require('workspace-diagnostics').populate_workspace_diagnostics(client_lsp, bufnr)
+          end
 
           local function map(keys, func, desc, mode)
             mode = mode or "n"
@@ -27,7 +35,6 @@ return {
           end
 
           -- KEYMAPS
-          local builtin = require("telescope.builtin")
           map("gd", builtin.lsp_definitions, "[G]oto [d]efinition")
           map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
           map("gr", builtin.lsp_references, "[G]oto [r]eferences under cursor")
@@ -50,8 +57,7 @@ return {
               client
               and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight)
           then
-            local highlight_augroup =
-                vim.api.nvim_create_augroup("conf-lsp-highlight", { clear = false })
+            local highlight_augroup = vim.api.nvim_create_augroup("conf-lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -68,7 +74,7 @@ return {
               group = vim.api.nvim_create_augroup("ConfLspDetach", { clear = true }),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({ group = "conf-lsp-highlight", buffer = event2.buf })
+                vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event2.buf })
               end,
             })
           end
@@ -82,8 +88,8 @@ return {
       end
       vim.diagnostic.config({
         signs = { text = diagnostic_signs },
-        virtual_text = true,
-        virtual_lines = false,
+        virtual_text = false,
+        virtual_lines = true,
         underline = true,
       })
     end,

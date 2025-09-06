@@ -45,13 +45,13 @@ return {
           },
           {
             "diagnostics",
-            sources = { "nvim_diagnostic", "nvim_lsp" },
+            sources = { "nvim_lsp" },
             symbols = { error = "", warn = "", info = "", hint = "" },
           },
         },
         lualine_c = { "filename", },
         lualine_x = { "encoding", "lsp_status", "filetype" },
-        lualine_y = { "searchcount", },
+        lualine_y = { "searchcount", { "diagnostics", sources = { "nvim_workspace_diagnostic" } } },
         lualine_z = { { "datetime", style = "%H:%M" } },
       },
       inactive_sections = {
