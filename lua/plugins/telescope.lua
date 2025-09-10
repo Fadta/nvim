@@ -24,9 +24,15 @@ return {
           mappings = {
             n = {
               ["d"] = actions.delete_buffer,
-              ["<C-j>"] = actions.preview_scrolling_down,
-              ["<C-k>"] = actions.preview_scrolling_up,
+              ["<M-h>"] = actions.select_horizontal,
+              ["<M-l>"] = actions.select_vertical,
+              ["<M-j>"] = actions.preview_scrolling_down,
+              ["<M-k>"] = actions.preview_scrolling_up,
             },
+            i = {
+              ["<M-h>"] = actions.select_horizontal,
+              ["<M-l>"] = actions.select_vertical,
+            }
           },
         },
         extensions = {
